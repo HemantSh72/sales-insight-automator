@@ -22,7 +22,10 @@ function App() {
     try {
       setStatus('loading')
       setMessage('')
-      const res = await axios.post('https://sales-insight-automator-zz30.onrender.com/api/upload', formData)      setStatus('success')
+      const res = await axios.post(
+        'https://sales-insight-automator-zz30.onrender.com/api/upload',
+        formData
+      )
       setMessage(res.data.message)
     } catch (err) {
       setStatus('error')
