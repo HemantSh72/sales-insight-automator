@@ -2,10 +2,12 @@ import { useState } from 'react'
 import axios from 'axios'
 import './App.css'
 
+const BACKEND_URL = 'https://sales-insight-automator-zz30.onrender.com'
+
 function App() {
   const [file, setFile] = useState(null)
   const [email, setEmail] = useState('')
-  const [status, setStatus] = useState('idle') // idle | loading | success | error
+  const [status, setStatus] = useState('idle')
   const [message, setMessage] = useState('')
 
   const handleSubmit = async () => {
@@ -22,10 +24,8 @@ function App() {
     try {
       setStatus('loading')
       setMessage('')
-      const res = await axios.post(
-        'https://sales-insight-automator-zz30.onrender.com/api/upload',
-        formData
-      )
+      const res = await axios.post(`${BACKEND_URL}/api/upload`, formData)
+      setStatus('success')
       setMessage(res.data.message)
     } catch (err) {
       setStatus('error')
@@ -71,7 +71,7 @@ function App() {
         {status === 'error' && <div className="alert error">❌ {message}</div>}
       </div>
 
-      <a href="http://localhost:5000/api-docs" target="_blank" className="swagger-link">
+      <a href={`${BACKEND_URL}/api-docs`} target="_blank" className="swagger-link">
         📖 View API Documentation
       </a>
     </div>
